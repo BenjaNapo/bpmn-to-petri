@@ -1,0 +1,115 @@
+<html lang="it">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+	<title>BPMN to Petri Net</title>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Belleza&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+	
+	<link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="main-container">
+		<div class="container loader-container show">
+			<h1>Translate BPMN to Petri Net</h1>
+			<h2>
+				Transform your diagram from BPMN notation to Petri Net.<br>
+				Once converted you'll be able to evaluate the properties of your process.<br>
+				You can also export multiple files at once.
+			</h2>
+			<label for="bpmn-file-input" class="file-input">Select BPMN</label>
+			<input type="file" name="file" id="bpmn-file-input" accept=".bpmn" style="display: none;" multiple>
+			
+			<p>or release here the files</p>
+
+			<div class="batch-container" style="display: none;">
+				<h2 style="margin-bottom: 15px;"><b>Your converted files</b></h2>
+				<div class="batch-files"></div>
+				<button class="download-all btn" style="margin-top: 15px;">Download all</button>
+			</div>
+		</div>
+		<div class="container converter-container">
+			<div class="bpmn-container">
+				<label class="import btn" for="bpmn-file-input">Import</label>
+				<input type="file" name="file" id="bpmn-file-input" accept=".bpmn" style="display: none;">
+			</div>
+			<div class="petri-container">
+				<div class="petrinet"></div>
+				<div class="export-buttons">
+					<button class="export">Export</button>
+					<button class="arrow"><img src="./assets/icons/next.png" alt="more"></button>
+					<div class="other-buttons">
+						<button class="graphviz">Graphviz</button>
+						<button class="pools">Pools</button>
+					</div>
+				</div>
+				<div class="configs-wrapper">
+					<div class="configs">
+						<div class="config">
+							<label for="apply-decorators">Apply Decorators</label>
+							<select name="apply-decorators" id="apply-decorators">
+								<option value="yes">Yes</option>
+								<option value="no" selected>No</option>
+							</select>
+						</div>
+						<div class="config">
+							<label for="apply-collapse">Collapse XOR</label>
+							<select name="apply-collapse" id="apply-collapse">
+								<option value="yes">Yes</option>
+								<option value="no" selected>No</option>
+							</select>
+						</div>
+						<div class="config">
+							<label for="apply-timed-tasks">Timed Tasks</label>
+							<select name="apply-timed-tasks" id="apply-timed-tasks">
+								<option value="yes">Yes</option>
+								<option value="no" selected>No</option>
+							</select>
+						</div>
+						<div class="config">
+							<label for="node-size">Node Size</label>
+							<input type="number" name="node-size" id="node-size" value="40">
+						</div>
+						<div class="config">
+							<label for="flow-scaling">Flow Scaling</label>
+							<input type="number" name="flow-scaling" id="flow-scaling" value="1.5">
+						</div>
+						<div class="config">
+							<label for="graphviz-text">Graphviz Text</label>
+							<select name="graphviz-text" id="graphviz-text">
+								<option value="outside" selected>Outside</option>
+								<option value="inside">Inside</option>
+							</select>
+						</div>
+						<div class="configs-controllers">
+							<button id="apply-configs"><img src="./assets/icons/sync.png" alt="reload"></button>
+							<button id="open-configs"><img src="./assets/icons/gear.png" alt="options"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="display-modes">
+				<div class="horizontal mode active" data-mode="horizontal">
+					<img src="./assets/icons/columns.png" alt="horizontal mode">
+				</div>
+				<div class="vertical mode" data-mode="vertical">
+					<img src="./assets/icons/columns.png" alt="vertical mode">
+				</div>
+				<div class="bpmn mode text" data-mode="bpmn">
+					<span>BPMN</span>
+				</div>
+				<div class="petri mode text" data-mode="petri">
+					<span>Petri</span>
+				</div>
+			</div>
+		</div>
+    </div>
+	<div id="toast" class="toast"></div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="src/index.js" type="module"></script>
+</body>
+</html>
