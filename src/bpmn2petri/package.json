@@ -1,0 +1,28 @@
+{
+    "name": "bpmn-to-petri-net",
+    "version": "1.0.0",
+    "description": "A lightweight, zero-dependency JavaScript library for converting BPMN diagrams into Petri Nets.",
+    "type": "module",
+    "main": "index.js",
+    "module": "index.js",
+    "exports": {
+        ".": "./index.js"
+    },
+    "keywords": [
+        "bpmn",
+        "petri",
+        "petrinet",
+        "converter",
+        "workflow",
+        "petrinet",
+        "bpmn-converter",
+        "process",
+        "modeling"
+    ],
+    "author": {
+        "name": "Andrea Napolitano",
+        "email": "andrea.napolitano@kremisi.com",
+        "url": "https://kremisi.com"
+    },
+    "license": "MIT"
+}
