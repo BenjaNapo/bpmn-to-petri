@@ -1,8 +1,8 @@
 :root {
-    --var-primary: #10AD73;
-    --var-primary-dark: #0A8A63;
+    --var-primary: #10ad73;
+    --var-primary-dark: #0a8a63;
     --var-primary-light: #19c183;
-    --var-primary-light-bg: #F0F9F7;
+    --var-primary-light-bg: #f0f9f7;
 }
 
 body {
@@ -21,19 +21,19 @@ body {
 button,
 input[type="submit"],
 .btn {
-    padding: .6rem 1.5rem;
+    padding: 0.6rem 1.5rem;
     font-size: 1rem;
     background-color: var(--var-primary);
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color .3s;
+    transition: background-color 0.3s;
 }
 button:hover,
 input[type="submit"]:hover,
 .btn:hover {
-    background-color: var(--var-primary-dark);;
+    background-color: var(--var-primary-dark);
 }
 
 .container {
@@ -98,7 +98,7 @@ input[type="submit"]:hover,
     background-color: white;
     color: black;
     border: 2px solid black;
-    font-size: .8rem;
+    font-size: 0.8rem;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -132,8 +132,8 @@ input[type="submit"]:hover,
 .petri-container .triangle {
     position: absolute;
     z-index: 2;
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
     border-left: 10px solid black;
@@ -141,8 +141,8 @@ input[type="submit"]:hover,
 .petri-container .decoration {
     position: absolute;
     z-index: 2;
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     border-top: calc(var(--node-size, 23px) / 2 - 2px) solid transparent;
     border-bottom: calc(var(--node-size, 23px) / 2 - 2px) solid transparent;
     border-left: calc(var(--node-size, 23px) / 3 + 1px) solid black;
@@ -153,8 +153,8 @@ input[type="submit"]:hover,
     content: "";
     position: absolute;
     z-index: 3;
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     border-top: 20px solid transparent;
     border-bottom: 20px solid transparent;
     border-top: calc(var(--node-size, 23px) / 16 * 7) solid transparent;
@@ -216,7 +216,7 @@ input[type="submit"]:hover,
 .other-buttons {
     position: absolute;
     z-index: 20;
-    top: -72px;
+    top: -108px;
     right: 0;
     display: flex;
     align-items: center;
@@ -232,6 +232,9 @@ input[type="submit"]:hover,
 .other-buttons button {
     width: 100%;
     border-radius: 0;
+}
+.other-buttons button:first-child {
+    border-radius: 5px 5px 0 0;
 }
 .import {
     top: 15px;
@@ -314,7 +317,7 @@ input[type="submit"]:hover,
     background-color: white;
     border: 2px solid var(--var-primary);
     border-radius: 5px;
-    transition: background-color .3s;
+    transition: background-color 0.3s;
     box-sizing: border-box;
     margin-top: 8px;
 }
@@ -344,7 +347,7 @@ input[type="submit"]:hover,
 }
 
 .configs-wrapper {
-    transition: all .5s;
+    transition: all 0.5s;
     max-height: 0;
     position: absolute;
     left: 0;
@@ -355,7 +358,7 @@ input[type="submit"]:hover,
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    background-color: #0A8A6333;
+    background-color: #0a8a6333;
     row-gap: 5px;
     border-radius: 0 0 5px 0;
     padding: 15px;
@@ -401,6 +404,19 @@ input[type="submit"]:hover,
     height: 15px;
 }
 
+/* COPYRIGHT */
+.copyright {
+    position: absolute;
+    bottom: 5px;
+    right: 35px;
+    font-size: 0.8rem;
+    color: #555;
+}
+.copyright a {
+    color: #005500;
+    text-decoration: none;
+}
+
 /* TOAST */
 .toast {
     visibility: hidden;
@@ -415,13 +431,13 @@ input[type="submit"]:hover,
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     font-family: sans-serif;
     opacity: 0;
     transition: opacity 0.3s ease;
-  }
+}
 
-  .toast.show {
+.toast.show {
     visibility: visible;
     opacity: 1;
-  }
+}
