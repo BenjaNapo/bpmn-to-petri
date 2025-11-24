@@ -1,444 +1,456 @@
 :root {
-  --var-primary: #10ad73;
-  --var-primary-dark: #0a8a63;
-  --var-primary-light: #19c183;
-  --var-primary-light-bg: #f0f9f7;
+    --var-primary: #10ad73;
+    --var-primary-dark: #0a8a63;
+    --var-primary-light: #19c183;
+    --var-primary-light-bg: #f0f9f7;
 }
 
 body {
-  font-family: "Roboto", "serif";
-  background-color: var(--var-primary-light-bg);
+    font-family: "Roboto", "serif";
+    background-color: var(--var-primary-light-bg);
 }
 
 .main-container {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 button,
 input[type="submit"],
 .btn {
-  padding: 0.6rem 1.5rem;
-  font-size: 1rem;
-  background-color: var(--var-primary);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    background-color: var(--var-primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 button:hover,
 input[type="submit"]:hover,
 .btn:hover {
-  background-color: var(--var-primary-dark);
+    background-color: var(--var-primary-dark);
 }
 
 .container {
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 95%;
-  width: 95%;
-  text-align: center;
-  margin: auto;
-  display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 95%;
+    width: 95%;
+    text-align: center;
+    margin: auto;
+    display: none;
 }
 .container.show {
-  display: flex;
+    display: flex;
 }
 
 .loader-container.dragover {
-  border: 5px dashed var(--var-primary);
+    border: 5px dashed var(--var-primary);
 }
 
 .loader-container h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
 }
 .loader-container h2 {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  font-weight: 400;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    font-weight: 400;
 }
 .loader-container label {
-  padding: 1.5rem 3rem;
-  font-size: 1.5rem;
-  background-color: var(--var-primary);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-weight: 600;
-  cursor: pointer;
+    padding: 1.5rem 3rem;
+    font-size: 1.5rem;
+    background-color: var(--var-primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
 }
 .loader-container p {
-  font-size: 1rem;
-  font-weight: 300;
+    font-size: 1rem;
+    font-weight: 300;
 }
 
 .bpmn-container,
 .petri-container {
-  flex: 1;
-  position: relative;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  border: 1px solid black;
+    flex: 1;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid black;
+}
+.petri-container {
+    cursor: grab;
+}
+.petri-container:active {
+    cursor: grabbing;
 }
 .petrinet {
-  width: 100%;
-  height: 100%;
-  position: absolute;
+    width: 100%;
+    height: 100%;
+    position: absolute;
 }
 .petri-container .node {
-  position: absolute;
-  background-color: white;
-  color: black;
-  border: 2px solid black;
-  font-size: 0.8rem;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  z-index: 5;
-  box-sizing: border-box;
+    position: absolute;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 5;
+    box-sizing: border-box;
 }
 .petri-container .node .name {
-  position: absolute;
-  bottom: -25px;
-  z-index: 10;
+    position: absolute;
+    bottom: -25px;
+    z-index: 10;
 }
 .petri-container .place {
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .petri-container .place .token {
-  width: 15px;
-  height: 15px;
-  background-color: black;
-  border-radius: 100%;
-  font-size: 20px;
+    width: 15px;
+    height: 15px;
+    background-color: black;
+    border-radius: 100%;
+    font-size: 20px;
 }
 .petri-container .arc {
-  position: absolute;
-  z-index: 1;
-  height: 2px;
-  background-color: black;
+    position: absolute;
+    z-index: 1;
+    height: 2px;
+    background-color: black;
 }
 .petri-container .triangle {
-  position: absolute;
-  z-index: 2;
-  width: 0;
-  height: 0;
-  border-top: 5px solid transparent;
-  border-bottom: 5px solid transparent;
-  border-left: 10px solid black;
+    position: absolute;
+    z-index: 2;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 10px solid black;
 }
 .petri-container .decoration {
-  position: absolute;
-  z-index: 2;
-  width: 0;
-  height: 0;
-  border-top: calc(var(--node-size, 23px) / 2 - 2px) solid transparent;
-  border-bottom: calc(var(--node-size, 23px) / 2 - 2px) solid transparent;
-  border-left: calc(var(--node-size, 23px) / 3 + 1px) solid black;
-  right: -1px;
-  background-color: #eee;
+    position: absolute;
+    z-index: 2;
+    width: 0;
+    height: 0;
+    border-top: calc(var(--node-size, 23px) / 2 - 2px) solid transparent;
+    border-bottom: calc(var(--node-size, 23px) / 2 - 2px) solid transparent;
+    border-left: calc(var(--node-size, 23px) / 3 + 1px) solid black;
+    right: -1px;
+    background-color: #eee;
 }
 .petri-container .decoration:after {
-  content: "";
-  position: absolute;
-  z-index: 3;
-  width: 0;
-  height: 0;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  border-top: calc(var(--node-size, 23px) / 16 * 7) solid transparent;
-  border-bottom: calc(var(--node-size, 23px) / 16 * 7) solid transparent;
-  border-left: calc(var(--node-size, 15px) / 16 * 5) solid white;
-  right: 1px;
-  bottom: unset;
-  top: 50%;
-  transform: translateY(-50%);
+    content: "";
+    position: absolute;
+    z-index: 3;
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-top: calc(var(--node-size, 23px) / 16 * 7) solid transparent;
+    border-bottom: calc(var(--node-size, 23px) / 16 * 7) solid transparent;
+    border-left: calc(var(--node-size, 15px) / 16 * 5) solid white;
+    right: 1px;
+    bottom: unset;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .petri-container .decoration:before {
-  content: "";
-  height: calc(var(--node-size, 23px));
-  width: 1px;
-  background-color: black;
-  position: absolute;
-  right: 0;
-  top: calc(var(--node-size, 23px) * -0.5);
+    content: "";
+    height: calc(var(--node-size, 23px));
+    width: 1px;
+    background-color: black;
+    position: absolute;
+    right: 0;
+    top: calc(var(--node-size, 23px) * -0.5);
 }
 .petri-container .decoration.position-left {
-  left: -1px;
+    left: -1px;
 }
 .petri-container .decoration.direction-left {
-  border-left: unset;
-  border-right: calc(var(--node-size, 23px) / 3 + 1px) solid black;
+    border-left: unset;
+    border-right: calc(var(--node-size, 23px) / 3 + 1px) solid black;
 }
 .petri-container .decoration.direction-left:after {
-  border-left: unset;
-  border-right: calc(var(--node-size, 15px) / 16 * 5) solid white;
-  right: unset;
-  left: 1px;
+    border-left: unset;
+    border-right: calc(var(--node-size, 15px) / 16 * 5) solid white;
+    right: unset;
+    left: 1px;
 }
 
 .bpmn-container .btn,
 .petri-container .export-buttons {
-  position: absolute;
-  z-index: 20;
+    position: absolute;
+    z-index: 20;
 }
 .export-buttons {
-  bottom: 15px;
-  right: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    bottom: 15px;
+    right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .export-buttons .arrow {
-  border-radius: 0 5px 5px 0;
-  padding: 8.5px 5px;
+    border-radius: 0 5px 5px 0;
+    padding: 8.5px 5px;
 }
 .export-buttons .export {
-  border-radius: 5px 0 0 5px;
-  padding-right: 8px;
+    border-radius: 5px 0 0 5px;
+    padding-right: 8px;
 }
 .export-buttons .arrow img {
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
 }
 .other-buttons {
-  position: absolute;
-  z-index: 20;
-  top: -108px;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
-  display: none;
+    position: absolute;
+    z-index: 20;
+    top: -108px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    display: none;
 }
 .export-buttons .arrow:hover + .other-buttons,
 .other-buttons:hover {
-  display: flex;
+    display: flex;
 }
 .other-buttons button {
-  width: 100%;
-  border-radius: 0;
+    width: 100%;
+    border-radius: 0;
 }
 .other-buttons button:first-child {
-  border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
 }
 .import {
-  top: 15px;
-  left: 15px;
+    top: 15px;
+    left: 15px;
 }
 
 .display-modes {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  z-index: 20;
-  background-color: var(--var-primary);
-  display: flex;
-  border-radius: 5px;
-  height: 30px;
-  overflow: hidden;
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    z-index: 20;
+    background-color: var(--var-primary);
+    display: flex;
+    border-radius: 5px;
+    height: 30px;
+    overflow: hidden;
 }
 .display-modes .mode {
-  height: 100%;
-  min-width: 30px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    height: 100%;
+    min-width: 30px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .display-modes .mode.active {
-  background-color: var(--var-primary-dark);
-  box-shadow: inset 0 0 10px #444;
+    background-color: var(--var-primary-dark);
+    box-shadow: inset 0 0 10px #444;
 }
 .display-modes img {
-  height: 20px;
-  width: auto;
-  cursor: pointer;
+    height: 20px;
+    width: auto;
+    cursor: pointer;
 }
 .display-modes .mode.text {
-  padding: 0 10px;
-  color: white;
-  font-weight: 600;
+    padding: 0 10px;
+    color: white;
+    font-weight: 600;
 }
 .display-modes .horizontal.mode img {
-  transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
 .converter-container {
-  position: relative;
+    position: relative;
 }
 .converter-container.vertical {
-  flex-direction: row;
+    flex-direction: row;
 }
 .converter-container.horizontal {
-  flex-direction: column;
+    flex-direction: column;
 }
 .converter-container.bpmn .petri-container {
-  display: none;
+    display: none;
 }
 .converter-container.petri .bpmn-container {
-  display: none;
+    display: none;
 }
 
 .batch-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 .batch-files {
-  width: 100%;
-  max-height: 300px;
-  overflow-y: auto;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
 }
 .batch-files .batch-item {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-  height: 50px;
-  min-height: 50px;
-  padding: 0 10px 0 20px;
-  background-color: white;
-  border: 2px solid var(--var-primary);
-  border-radius: 5px;
-  transition: background-color 0.3s;
-  box-sizing: border-box;
-  margin-top: 8px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    min-height: 50px;
+    padding: 0 10px 0 20px;
+    background-color: white;
+    border: 2px solid var(--var-primary);
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    box-sizing: border-box;
+    margin-top: 8px;
 }
 
 .batch-item-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: auto;
-  column-gap: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    column-gap: 10px;
 }
 .batch-item-buttons button {
-  width: 30px;
-  height: 30px;
-  border: 3px solid var(--var-primary);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
+    width: 30px;
+    height: 30px;
+    border: 3px solid var(--var-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
 }
 .batch-item-buttons button:hover {
-  background-color: var(--var-primary-light);
+    background-color: var(--var-primary-light);
 }
 .batch-item-buttons button img {
-  width: 15px;
-  height: 15px;
+    width: 15px;
+    height: 15px;
 }
 
 .configs-wrapper {
-  transition: all 0.5s;
-  max-height: 0;
-  position: absolute;
-  left: 0;
-  top: -225px;
+    transition: all 0.5s;
+    max-height: 0;
+    position: absolute;
+    left: 0;
+    top: -225px;
 }
 .configs {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  background-color: #0a8a6333;
-  row-gap: 5px;
-  border-radius: 0 0 5px 0;
-  padding: 15px;
-  position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    background-color: #0a8a6333;
+    row-gap: 5px;
+    border-radius: 0 0 5px 0;
+    padding: 15px;
+    position: relative;
 }
 .configs-wrapper.show {
-  top: 0;
+    top: 0;
 }
 .configs .config {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  column-gap: 10px;
-  font-weight: 500;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    column-gap: 10px;
+    font-weight: 500;
 }
 .configs .config :nth-child(1) {
-  min-width: 130px;
-  text-align: left;
+    min-width: 130px;
+    text-align: left;
 }
 .configs .config input,
 .configs .config select {
-  padding: 5px;
-  border: 1px solid var(--var-primary);
-  border-radius: 5px;
-  width: 100px;
-  height: 28.5px;
+    padding: 5px;
+    border: 1px solid var(--var-primary);
+    border-radius: 5px;
+    width: 100px;
+    height: 28.5px;
 }
 .configs-controllers {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 5px;
-  position: absolute;
-  bottom: -30px;
-  left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 5px;
+    position: absolute;
+    bottom: -30px;
+    left: 5px;
 }
 .configs-controllers button {
-  width: 25px;
-  height: 25px;
-  padding: 0;
+    width: 25px;
+    height: 25px;
+    padding: 0;
 }
 .configs-controllers button img {
-  width: 15px;
-  height: 15px;
+    width: 15px;
+    height: 15px;
 }
 
 /* COPYRIGHT */
-.copyright {
-  position: absolute;
-  bottom: 5px;
-  right: 35px;
-  font-size: 0.8rem;
-  color: #555;
+.copyright,
+.legend {
+    position: absolute;
+    bottom: 5px;
+    right: 35px;
+    font-size: 0.8rem;
+    color: #555;
 }
 .copyright a {
-  color: #005500;
-  text-decoration: none;
+    color: #005500;
+    text-decoration: none;
+}
+.legend {
+    right: unset;
+    left: 0;
+    bottom: -25px;
 }
 
 /* TOAST */
 .toast {
-  visibility: hidden;
-  min-width: 250px;
-  background-color: #f8d7da;
-  color: #721c24;
-  text-align: center;
-  border-radius: 8px;
-  padding: 16px;
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  font-family: sans-serif;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #f8d7da;
+    color: #721c24;
+    text-align: center;
+    border-radius: 8px;
+    padding: 16px;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    font-family: sans-serif;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .toast.show {
-  visibility: visible;
-  opacity: 1;
+    visibility: visible;
+    opacity: 1;
 }

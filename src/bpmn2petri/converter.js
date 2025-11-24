@@ -70,7 +70,8 @@ class Converter {
                     try {
                         this.convertFlow(flow, process);
                     } catch (e) {
-                        throw "Error converting flow arcs";
+                        console.error(e);
+                        throw "Error converting flow arcs: " + e.message;
                     }
             });
         });
