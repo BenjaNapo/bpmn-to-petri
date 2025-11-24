@@ -24,7 +24,13 @@ npm install bpmn-to-petri-net
 ## 🚀 Quick Start
 
 ```js
-import { Importer, Parser, Converter, Exporter, Config } from "bpmn2petri";
+import {
+  Importer,
+  Parser,
+  Converter,
+  Exporter,
+  Config,
+} from "bpmn-to-petri-net";
 ```
 
 ---
@@ -135,7 +141,13 @@ petrinet.draw(domElement, Config.scale, Config.nodeSize + 10);
 # 📚 Full Example
 
 ```js
-import { Importer, Parser, Converter, Exporter, Config } from "bpmn2petri";
+import {
+  Importer,
+  Parser,
+  Converter,
+  Exporter,
+  Config,
+} from "bpmn-to-petri-net";
 
 async function convertBPMNFile(file) {
   const importer = new Importer();
