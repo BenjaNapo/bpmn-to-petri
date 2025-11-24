@@ -74,6 +74,11 @@
                         Download all
                     </button>
                 </div>
+
+                <div class="warnings">
+                    <img src="./assets/icons/warning.png" alt="warning" />
+                    <u class="warnings-text"> BPMN Format</u>
+                </div>
             </div>
             <div class="container converter-container">
                 <div class="bpmn-container">
@@ -218,6 +223,30 @@
                 </span>
             </div>
         </div>
+        <div class="warnings-modal">
+            <div class="warnings-content">
+                <span class="close-warnings">&times;</span>
+                <h2>About BPMN format</h2>
+                <div class="warnings-messages">
+                    <p>
+                        To work properly, the BPMN diagrams must follow these
+                        rules:
+                        <ul>
+                            <li>
+                                Each BPMN diagram must contain at least one
+                                process.
+                            </li>
+                            <li>
+                                The diagram must be well-formed according to
+                                BPMN 2.0 specifications.
+                            </li>
+                            <li>Don't use artifacts.</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="modal-bg"></div>
         <div id="toast" class="toast"></div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="src/index.js" type="module"></script>
