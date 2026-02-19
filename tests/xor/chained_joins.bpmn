@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <process id="Process_1" isExecutable="false">
+    <startEvent id="Start1"><outgoing>F1</outgoing></startEvent>
+    <exclusiveGateway id="XS1"><incoming>F1</incoming><outgoing>F2</outgoing><outgoing>F3</outgoing></exclusiveGateway>
+    <task id="TaskA" name="A"><incoming>F2</incoming><outgoing>F4</outgoing></task>
+    <task id="TaskB" name="B"><incoming>F3</incoming><outgoing>F5</outgoing></task>
+    <exclusiveGateway id="XJ1"><incoming>F4</incoming><incoming>F5</incoming><outgoing>F6</outgoing></exclusiveGateway>
+    <task id="TaskC" name="C"><incoming>F6</incoming><outgoing>F7</outgoing></task>
+    <exclusiveGateway id="XS2"><incoming>F7</incoming><outgoing>F8</outgoing><outgoing>F9</outgoing></exclusiveGateway>
+    <task id="TaskD" name="D"><incoming>F8</incoming><outgoing>F10</outgoing></task>
+    <task id="TaskE" name="E"><incoming>F9</incoming><outgoing>F11</outgoing></task>
+    <exclusiveGateway id="XJ2"><incoming>F10</incoming><incoming>F11</incoming><outgoing>F12</outgoing></exclusiveGateway>
+    <endEvent id="End1"><incoming>F12</incoming></endEvent>
+    <sequenceFlow id="F1" sourceRef="Start1" targetRef="XS1" />
+    <sequenceFlow id="F2" sourceRef="XS1" targetRef="TaskA" />
+    <sequenceFlow id="F3" sourceRef="XS1" targetRef="TaskB" />
+    <sequenceFlow id="F4" sourceRef="TaskA" targetRef="XJ1" />
+    <sequenceFlow id="F5" sourceRef="TaskB" targetRef="XJ1" />
+    <sequenceFlow id="F6" sourceRef="XJ1" targetRef="TaskC" />
+    <sequenceFlow id="F7" sourceRef="TaskC" targetRef="XS2" />
+    <sequenceFlow id="F8" sourceRef="XS2" targetRef="TaskD" />
+    <sequenceFlow id="F9" sourceRef="XS2" targetRef="TaskE" />
+    <sequenceFlow id="F10" sourceRef="TaskD" targetRef="XJ2" />
+    <sequenceFlow id="F11" sourceRef="TaskE" targetRef="XJ2" />
+    <sequenceFlow id="F12" sourceRef="XJ2" targetRef="End1" />
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="s0" bpmnElement="Start1"><dc:Bounds x="150" y="182" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s1" bpmnElement="XS1" isMarkerVisible="true"><dc:Bounds x="230" y="175" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s2" bpmnElement="TaskA"><dc:Bounds x="330" y="100" width="100" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s3" bpmnElement="TaskB"><dc:Bounds x="330" y="230" width="100" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s4" bpmnElement="XJ1" isMarkerVisible="true"><dc:Bounds x="480" y="175" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s5" bpmnElement="TaskC"><dc:Bounds x="580" y="160" width="100" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s6" bpmnElement="XS2" isMarkerVisible="true"><dc:Bounds x="730" y="175" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s7" bpmnElement="TaskD"><dc:Bounds x="830" y="100" width="100" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s8" bpmnElement="TaskE"><dc:Bounds x="830" y="230" width="100" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s9" bpmnElement="XJ2" isMarkerVisible="true"><dc:Bounds x="980" y="175" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s10" bpmnElement="End1"><dc:Bounds x="1080" y="182" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="e1" bpmnElement="F1"><di:waypoint x="186" y="200" /><di:waypoint x="230" y="200" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e2" bpmnElement="F2"><di:waypoint x="255" y="175" /><di:waypoint x="255" y="140" /><di:waypoint x="330" y="140" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e3" bpmnElement="F3"><di:waypoint x="255" y="225" /><di:waypoint x="255" y="270" /><di:waypoint x="330" y="270" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e4" bpmnElement="F4"><di:waypoint x="430" y="140" /><di:waypoint x="505" y="140" /><di:waypoint x="505" y="175" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e5" bpmnElement="F5"><di:waypoint x="430" y="270" /><di:waypoint x="505" y="270" /><di:waypoint x="505" y="225" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e6" bpmnElement="F6"><di:waypoint x="530" y="200" /><di:waypoint x="580" y="200" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e7" bpmnElement="F7"><di:waypoint x="680" y="200" /><di:waypoint x="730" y="200" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e8" bpmnElement="F8"><di:waypoint x="755" y="175" /><di:waypoint x="755" y="140" /><di:waypoint x="830" y="140" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e9" bpmnElement="F9"><di:waypoint x="755" y="225" /><di:waypoint x="755" y="270" /><di:waypoint x="830" y="270" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e10" bpmnElement="F10"><di:waypoint x="930" y="140" /><di:waypoint x="1005" y="140" /><di:waypoint x="1005" y="175" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e11" bpmnElement="F11"><di:waypoint x="930" y="270" /><di:waypoint x="1005" y="270" /><di:waypoint x="1005" y="225" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e12" bpmnElement="F12"><di:waypoint x="1030" y="200" /><di:waypoint x="1080" y="200" /></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

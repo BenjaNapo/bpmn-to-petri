@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BPMN→Petri Converter — Edge-Case Test Suite</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --surface-hover: #22263a;
+            --border: #2a2e3d;
+            --text: #e4e6ef;
+            --text-muted: #8b8fa3;
+            --green: #22c55e;
+            --green-bg: rgba(34, 197, 94, 0.1);
+            --red: #ef4444;
+            --red-bg: rgba(239, 68, 68, 0.1);
+            --yellow: #f59e0b;
+            --yellow-bg: rgba(245, 158, 11, 0.1);
+            --blue: #3b82f6;
+            --blue-bg: rgba(59, 130, 246, 0.1);
+            --purple: #a855f7;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ── Summary Bar ── */
+        .summary-bar {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .summary-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem 1.8rem;
+            text-align: center;
+            min-width: 130px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .summary-card .number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+
+        .summary-card .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+        }
+
+        .card-total .number { color: var(--blue); }
+        .card-pass .number { color: var(--green); }
+        .card-fail .number { color: var(--red); }
+        .card-time .number { font-size: 1.5rem; color: var(--purple); }
+
+        /* ── Progress Bar ── */
+        .progress-container {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            background: var(--surface);
+            border-radius: 10px;
+            overflow: hidden;
+            height: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--blue), var(--purple));
+            transition: width 0.3s ease;
+            border-radius: 10px;
+            width: 0%;
+        }
+
+        /* ── Run Button ── */
+        .run-btn-container { text-align: center; margin-bottom: 2rem; }
+
+        .run-btn {
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            color: #fff;
+            border: none;
+            padding: 0.8rem 2.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .run-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .run-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ── Category Groups ── */
+        .category {
+            max-width: 900px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .category-header {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+            padding-left: 0.3rem;
+        }
+
+        /* ── Test Card ── */
+        .test-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .test-card:hover {
+            background: var(--surface-hover);
+        }
+
+        .test-card.pass { border-left: 3px solid var(--green); }
+        .test-card.fail { border-left: 3px solid var(--red); }
+        .test-card.pending { border-left: 3px solid var(--border); }
+
+        .test-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+
+        .test-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            flex: 1;
+        }
+
+        .test-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
+        .badge-pass { background: var(--green-bg); color: var(--green); }
+        .badge-fail { background: var(--red-bg); color: var(--red); }
+        .badge-pending { background: rgba(255,255,255,0.05); color: var(--text-muted); }
+
+        .test-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+        }
+
+        .test-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .test-stats span { opacity: 0.7; }
+
+        /* ── Error Details ── */
+        .test-details {
+            display: none;
+            margin-top: 0.7rem;
+            padding-top: 0.7rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .test-card.expanded .test-details { display: block; }
+
+        .error-line {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--red);
+            padding: 0.3rem 0.6rem;
+            background: var(--red-bg);
+            border-radius: 6px;
+            margin-bottom: 0.3rem;
+        }
+
+        .file-link {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--blue);
+            opacity: 0.8;
+        }
+
+        /* ── Responsiveness ── */
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .summary-bar { gap: 0.6rem; }
+            .summary-card { min-width: 80px; padding: 0.8rem 1rem; }
+            .summary-card .number { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>BPMN → Petri Net Converter</h1>
+        <p>Edge-Case Test Suite — 15 structural soundness tests</p>
+    </div>
+
+    <div class="summary-bar" id="summaryBar">
+        <div class="summary-card card-total">
+            <span class="number" id="totalCount">15</span>
+            <span class="label">Total</span>
+        </div>
+        <div class="summary-card card-pass">
+            <span class="number" id="passCount">–</span>
+            <span class="label">Passed</span>
+        </div>
+        <div class="summary-card card-fail">
+            <span class="number" id="failCount">–</span>
+            <span class="label">Failed</span>
+        </div>
+        <div class="summary-card card-time">
+            <span class="number" id="elapsedTime">–</span>
+            <span class="label">Time</span>
+        </div>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="run-btn-container">
+        <button class="run-btn" id="runBtn">▶ Run All Tests</button>
+    </div>
+
+    <div id="resultsContainer"></div>
+
+    <script type="module">
+        import { runAllTests, tests } from "./tests.js";
+
+        const runBtn = document.getElementById("runBtn");
+        const passCount = document.getElementById("passCount");
+        const failCount = document.getElementById("failCount");
+        const elapsedTime = document.getElementById("elapsedTime");
+        const progressFill = document.getElementById("progressFill");
+        const container = document.getElementById("resultsContainer");
+
+        // Build initial UI from tests list
+        function buildInitialUI() {
+            const categories = {};
+            tests.forEach((t, i) => {
+                if (!categories[t.category]) categories[t.category] = [];
+                categories[t.category].push({ ...t, index: i });
+            });
+
+            container.innerHTML = "";
+            for (const [cat, items] of Object.entries(categories)) {
+                const catDiv = document.createElement("div");
+                catDiv.className = "category";
+                catDiv.innerHTML = `<div class="category-header">${cat}</div>`;
+
+                items.forEach((t) => {
+                    const card = document.createElement("div");
+                    card.className = "test-card pending";
+                    card.id = `test-${t.index}`;
+                    card.innerHTML = `
+                        <div class="test-top">
+                            <span class="test-name">${t.name}</span>
+                            <span class="test-badge badge-pending">PENDING</span>
+                        </div>
+                        <div class="test-desc">${t.description}</div>
+                        <div class="test-stats"></div>
+                        <div class="test-details"></div>
+                    `;
+                    card.addEventListener("click", () => {
+                        card.classList.toggle("expanded");
+                    });
+                    catDiv.appendChild(card);
+                });
+                container.appendChild(catDiv);
+            }
+        }
+
+        function updateCard(index, result) {
+            const card = document.getElementById(`test-${index}`);
+            if (!card) return;
+
+            card.className = `test-card ${result.passed ? "pass" : "fail"}`;
+
+            const badge = card.querySelector(".test-badge");
+            if (result.passed) {
+                badge.className = "test-badge badge-pass";
+                badge.textContent = "PASS";
+            } else {
+                badge.className = "test-badge badge-fail";
+                badge.textContent = "FAIL";
+            }
+
+            const stats = card.querySelector(".test-stats");
+            if (result.nodeCount.places || result.nodeCount.transitions) {
+                stats.innerHTML = `
+                    <span>P: ${result.nodeCount.places}</span>
+                    <span>T: ${result.nodeCount.transitions}</span>
+                    <span>A: ${result.nodeCount.arcs}</span>
+                `;
+            }
+
+            const details = card.querySelector(".test-details");
+            if (result.errors.length > 0) {
+                details.innerHTML =
+                    result.errors
+                        .map((e) => `<div class="error-line">✗ ${e}</div>`)
+                        .join("") +
+                    `<div class="file-link">${result.file}</div>`;
+            } else {
+                details.innerHTML = `<div class="file-link">${result.file}</div>`;
+            }
+        }
+
+        buildInitialUI();
+
+        runBtn.addEventListener("click", async () => {
+            runBtn.disabled = true;
+            runBtn.textContent = "Running…";
+            passCount.textContent = "–";
+            failCount.textContent = "–";
+            elapsedTime.textContent = "–";
+            progressFill.style.width = "0%";
+
+            // Reset cards
+            buildInitialUI();
+
+            const start = performance.now();
+            let passed = 0, failed = 0;
+
+            const results = await runAllTests((done, total, result) => {
+                const idx = done - 1;
+                updateCard(idx, result);
+                if (result.passed) passed++; else failed++;
+                passCount.textContent = passed;
+                failCount.textContent = failed;
+                progressFill.style.width = `${(done / total) * 100}%`;
+            });
+
+            const elapsed = ((performance.now() - start) / 1000).toFixed(2);
+            elapsedTime.textContent = `${elapsed}s`;
+            runBtn.disabled = false;
+            runBtn.textContent = "▶ Run All Tests";
+        });
+    </script>
+</body>
+</html>

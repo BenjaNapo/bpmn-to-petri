@@ -53,7 +53,7 @@ class Exporter {
 
         this.petrinet.places.forEach((place) => {
             if (place.process === process || process === null)
-                this.exportNode(place, "place", net, xmlDoc);
+                this.exportNode(place, "place", net, xmlDoc, process);
         });
         this.petrinet.transitions.forEach((transition) => {
             if (transition.process === process || process === null)
@@ -89,8 +89,9 @@ class Exporter {
      * @param {string} type - The type of the node (place or transition)
      * @param {Element} net - The net element to append the node to
      * @param {Document} xmlDoc - The XML document
+     * @param {string} process - The process identifier (null for full export)
      */
-    exportNode(node, type = "place", net, xmlDoc) {
+    exportNode(node, type = "place", net, xmlDoc, process = null) {
         let ogNode = node;
         if (node instanceof XORSplit || node instanceof XORJoin) {
             node = node.ref;
@@ -124,7 +125,12 @@ class Exporter {
         if (type === "place") {
             let initialMarking = xmlDoc.createElement("initialMarking");
             let marking = xmlDoc.createElement("text");
-            marking.textContent = node.tokens;
+            // Filter incoming arcs to only those from the same process (or all if process is null)
+            const inArcsInProcess = node.inArcs.filter(arc => 
+                process === null || arc.source.process === process
+            );
+            const isStartPlace = inArcsInProcess.length === 0;
+            marking.textContent = (isStartPlace && node.tokens === 0) ? 1 : node.tokens;
             initialMarking.appendChild(marking);
             nodeEl.appendChild(initialMarking);
         }
@@ -242,32 +248,39 @@ class Exporter {
      * @returns {string} The prettified XML
      */
     prettifyXml(sourceXml) {
-        var xmlDoc = new DOMParser().parseFromString(
-            sourceXml,
-            "application/xml"
-        );
-        var xsltDoc = new DOMParser().parseFromString(
-            [
-                // describes how we want to modify the XML - indent everything
-                '<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform">',
-                '  <xsl:strip-space elements="*"/>',
-                '  <xsl:template match="para[content-style][not(text())]">', // change to just text() to strip space in text nodes
-                '    <xsl:value-of select="normalize-space(.)"/>',
-                "  </xsl:template>",
-                '  <xsl:template match="node()|@*">',
-                '    <xsl:copy><xsl:apply-templates select="node()|@*"/></xsl:copy>',
-                "  </xsl:template>",
-                '  <xsl:output indent="yes"/>',
-                "</xsl:stylesheet>",
-            ].join("\n"),
-            "application/xml"
-        );
+        try {
+            var xmlDoc = new DOMParser().parseFromString(
+                sourceXml,
+                "application/xml"
+            );
+            var xsltDoc = new DOMParser().parseFromString(
+                [
+                    // describes how we want to modify the XML - indent everything
+                    '<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform">',
+                    '  <xsl:strip-space elements="*"/>',
+                    '  <xsl:template match="para[content-style][not(text())]">', // change to just text() to strip space in text nodes
+                    '    <xsl:value-of select="normalize-space(.)"/>',
+                    "  </xsl:template>",
+                    '  <xsl:template match="node()|@*">',
+                    '    <xsl:copy><xsl:apply-templates select="node()|@*"/></xsl:copy>',
+                    "  </xsl:template>",
+                    '  <xsl:output indent="yes"/>',
+                    "</xsl:stylesheet>",
+                ].join("\n"),
+                "application/xml"
+            );
 
-        var xsltProcessor = new XSLTProcessor();
-        xsltProcessor.importStylesheet(xsltDoc);
-        var resultDoc = xsltProcessor.transformToDocument(xmlDoc);
-        var resultXml = new XMLSerializer().serializeToString(resultDoc);
-        return resultXml;
+            var xsltProcessor = new XSLTProcessor();
+            xsltProcessor.importStylesheet(xsltDoc);
+            var resultDoc = xsltProcessor.transformToDocument(xmlDoc);
+            var resultXml = new XMLSerializer().serializeToString(resultDoc);
+            return resultXml;
+        } catch (e) {
+            // Firefox can have issues with XSLT transformation
+            // Fall back to returning the source XML without prettification
+            console.warn("XML prettification failed, using unprettified XML:", e);
+            return sourceXml;
+        }
     }
 
     /**

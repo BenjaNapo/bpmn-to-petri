@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <process id="Process_1" isExecutable="false">
+    <startEvent id="Start1"><outgoing>F1</outgoing></startEvent>
+    <inclusiveGateway id="OR_Split"><incoming>F1</incoming><outgoing>F2</outgoing><outgoing>F3</outgoing></inclusiveGateway>
+    <task id="TaskA" name="Task A"><incoming>F2</incoming><outgoing>F4</outgoing></task>
+    <task id="TaskB" name="Task B"><incoming>F3</incoming><outgoing>F5</outgoing></task>
+    <inclusiveGateway id="OR_Join"><incoming>F4</incoming><incoming>F5</incoming><outgoing>F6</outgoing></inclusiveGateway>
+    <endEvent id="End1"><incoming>F6</incoming></endEvent>
+    <sequenceFlow id="F1" sourceRef="Start1" targetRef="OR_Split" />
+    <sequenceFlow id="F2" sourceRef="OR_Split" targetRef="TaskA" />
+    <sequenceFlow id="F3" sourceRef="OR_Split" targetRef="TaskB" />
+    <sequenceFlow id="F4" sourceRef="TaskA" targetRef="OR_Join" />
+    <sequenceFlow id="F5" sourceRef="TaskB" targetRef="OR_Join" />
+    <sequenceFlow id="F6" sourceRef="OR_Join" targetRef="End1" />
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="s0" bpmnElement="Start1"><dc:Bounds x="180" y="182" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s1" bpmnElement="OR_Split"><dc:Bounds x="270" y="175" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s2" bpmnElement="TaskA"><dc:Bounds x="380" y="100" width="100" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s3" bpmnElement="TaskB"><dc:Bounds x="380" y="220" width="100" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s4" bpmnElement="OR_Join"><dc:Bounds x="540" y="175" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s5" bpmnElement="End1"><dc:Bounds x="650" y="182" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="e1" bpmnElement="F1"><di:waypoint x="216" y="200" /><di:waypoint x="270" y="200" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e2" bpmnElement="F2"><di:waypoint x="295" y="175" /><di:waypoint x="295" y="140" /><di:waypoint x="380" y="140" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e3" bpmnElement="F3"><di:waypoint x="295" y="225" /><di:waypoint x="295" y="260" /><di:waypoint x="380" y="260" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e4" bpmnElement="F4"><di:waypoint x="480" y="140" /><di:waypoint x="565" y="140" /><di:waypoint x="565" y="175" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e5" bpmnElement="F5"><di:waypoint x="480" y="260" /><di:waypoint x="565" y="260" /><di:waypoint x="565" y="225" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e6" bpmnElement="F6"><di:waypoint x="590" y="200" /><di:waypoint x="650" y="200" /></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

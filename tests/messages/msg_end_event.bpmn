@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <collaboration id="Collab1">
+    <participant id="P1" name="Pool 1" processRef="Process_1" />
+    <participant id="P2" name="Pool 2" processRef="Process_2" />
+    <messageFlow id="MF1" sourceRef="MsgEnd" targetRef="MsgStart2" />
+  </collaboration>
+  <process id="Process_1" isExecutable="false">
+    <startEvent id="Start1"><outgoing>F1</outgoing></startEvent>
+    <task id="Task1" name="Do Work"><incoming>F1</incoming><outgoing>F2</outgoing></task>
+    <endEvent id="MsgEnd"><incoming>F2</incoming><messageEventDefinition id="md1" /></endEvent>
+    <sequenceFlow id="F1" sourceRef="Start1" targetRef="Task1" />
+    <sequenceFlow id="F2" sourceRef="Task1" targetRef="MsgEnd" />
+  </process>
+  <process id="Process_2" isExecutable="false">
+    <startEvent id="MsgStart2"><outgoing>G1</outgoing></startEvent>
+    <task id="Task2" name="Receive"><incoming>G1</incoming><outgoing>G2</outgoing></task>
+    <endEvent id="End2"><incoming>G2</incoming></endEvent>
+    <sequenceFlow id="G1" sourceRef="MsgStart2" targetRef="Task2" />
+    <sequenceFlow id="G2" sourceRef="Task2" targetRef="End2" />
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collab1">
+      <bpmndi:BPMNShape id="P1_di" bpmnElement="P1" isHorizontal="true"><dc:Bounds x="120" y="60" width="500" height="200" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="P2_di" bpmnElement="P2" isHorizontal="true"><dc:Bounds x="120" y="300" width="500" height="200" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s0" bpmnElement="Start1"><dc:Bounds x="180" y="142" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s1" bpmnElement="Task1"><dc:Bounds x="280" y="120" width="100" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s2" bpmnElement="MsgEnd"><dc:Bounds x="450" y="142" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s3" bpmnElement="MsgStart2"><dc:Bounds x="312" y="382" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s4" bpmnElement="Task2"><dc:Bounds x="400" y="360" width="100" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s5" bpmnElement="End2"><dc:Bounds x="550" y="382" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="e1" bpmnElement="F1"><di:waypoint x="216" y="160" /><di:waypoint x="280" y="160" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e2" bpmnElement="F2"><di:waypoint x="380" y="160" /><di:waypoint x="450" y="160" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e3" bpmnElement="G1"><di:waypoint x="348" y="400" /><di:waypoint x="400" y="400" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e4" bpmnElement="G2"><di:waypoint x="500" y="400" /><di:waypoint x="550" y="400" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e5" bpmnElement="MF1"><di:waypoint x="468" y="178" /><di:waypoint x="330" y="382" /></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

@@ -5,7 +5,6 @@ import {
     Exporter,
     Config,
 } from "./bpmn2petri/index.js";
-import * as X from "../node_modules/bpmn-js/dist/bpmn-navigated-viewer.development.js";
 
 var fileName = "";
 var petrinet = null;

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <collaboration id="Collab1">
+    <participant id="P1" name="Sender" processRef="Process_1" />
+    <participant id="P2" name="Receiver" processRef="Process_2" />
+    <messageFlow id="MF1" sourceRef="SendA" targetRef="CatchA" />
+    <messageFlow id="MF2" sourceRef="SendB" targetRef="CatchB" />
+  </collaboration>
+  <process id="Process_1" isExecutable="false">
+    <startEvent id="Start1"><outgoing>F1</outgoing></startEvent>
+    <exclusiveGateway id="XS"><incoming>F1</incoming><outgoing>F2</outgoing><outgoing>F3</outgoing></exclusiveGateway>
+    <intermediateThrowEvent id="SendA"><incoming>F2</incoming><outgoing>F4</outgoing><messageEventDefinition id="md1" /></intermediateThrowEvent>
+    <intermediateThrowEvent id="SendB"><incoming>F3</incoming><outgoing>F5</outgoing><messageEventDefinition id="md2" /></intermediateThrowEvent>
+    <exclusiveGateway id="XJ"><incoming>F4</incoming><incoming>F5</incoming><outgoing>F6</outgoing></exclusiveGateway>
+    <endEvent id="End1"><incoming>F6</incoming></endEvent>
+    <sequenceFlow id="F1" sourceRef="Start1" targetRef="XS" />
+    <sequenceFlow id="F2" sourceRef="XS" targetRef="SendA" />
+    <sequenceFlow id="F3" sourceRef="XS" targetRef="SendB" />
+    <sequenceFlow id="F4" sourceRef="SendA" targetRef="XJ" />
+    <sequenceFlow id="F5" sourceRef="SendB" targetRef="XJ" />
+    <sequenceFlow id="F6" sourceRef="XJ" targetRef="End1" />
+  </process>
+  <process id="Process_2" isExecutable="false">
+    <startEvent id="Start2"><outgoing>G1</outgoing></startEvent>
+    <task id="Task2" name="Wait"><incoming>G1</incoming><outgoing>G2</outgoing></task>
+    <eventBasedGateway id="EBG"><incoming>G2</incoming><outgoing>G3</outgoing><outgoing>G4</outgoing></eventBasedGateway>
+    <intermediateCatchEvent id="CatchA"><incoming>G3</incoming><outgoing>G5</outgoing><messageEventDefinition id="md3" /></intermediateCatchEvent>
+    <intermediateCatchEvent id="CatchB"><incoming>G4</incoming><outgoing>G6</outgoing><messageEventDefinition id="md4" /></intermediateCatchEvent>
+    <exclusiveGateway id="XJ2"><incoming>G5</incoming><incoming>G6</incoming><outgoing>G7</outgoing></exclusiveGateway>
+    <endEvent id="End2"><incoming>G7</incoming></endEvent>
+    <sequenceFlow id="G1" sourceRef="Start2" targetRef="Task2" />
+    <sequenceFlow id="G2" sourceRef="Task2" targetRef="EBG" />
+    <sequenceFlow id="G3" sourceRef="EBG" targetRef="CatchA" />
+    <sequenceFlow id="G4" sourceRef="EBG" targetRef="CatchB" />
+    <sequenceFlow id="G5" sourceRef="CatchA" targetRef="XJ2" />
+    <sequenceFlow id="G6" sourceRef="CatchB" targetRef="XJ2" />
+    <sequenceFlow id="G7" sourceRef="XJ2" targetRef="End2" />
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collab1">
+      <bpmndi:BPMNShape id="P1_di" bpmnElement="P1" isHorizontal="true"><dc:Bounds x="120" y="60" width="700" height="200" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="P2_di" bpmnElement="P2" isHorizontal="true"><dc:Bounds x="120" y="300" width="700" height="200" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s0" bpmnElement="Start1"><dc:Bounds x="170" y="142" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s1" bpmnElement="XS" isMarkerVisible="true"><dc:Bounds x="250" y="135" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s2" bpmnElement="SendA"><dc:Bounds x="360" y="92" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s3" bpmnElement="SendB"><dc:Bounds x="360" y="192" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s4" bpmnElement="XJ" isMarkerVisible="true"><dc:Bounds x="450" y="135" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s5" bpmnElement="End1"><dc:Bounds x="560" y="142" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s6" bpmnElement="Start2"><dc:Bounds x="170" y="382" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s7" bpmnElement="Task2"><dc:Bounds x="250" y="360" width="100" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s8" bpmnElement="EBG"><dc:Bounds x="400" y="375" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s9" bpmnElement="CatchA"><dc:Bounds x="500" y="332" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s10" bpmnElement="CatchB"><dc:Bounds x="500" y="432" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s11" bpmnElement="XJ2" isMarkerVisible="true"><dc:Bounds x="590" y="375" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s12" bpmnElement="End2"><dc:Bounds x="700" y="382" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="e1" bpmnElement="F1"><di:waypoint x="206" y="160" /><di:waypoint x="250" y="160" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e2" bpmnElement="F2"><di:waypoint x="275" y="135" /><di:waypoint x="275" y="110" /><di:waypoint x="360" y="110" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e3" bpmnElement="F3"><di:waypoint x="275" y="185" /><di:waypoint x="275" y="210" /><di:waypoint x="360" y="210" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e4" bpmnElement="F4"><di:waypoint x="396" y="110" /><di:waypoint x="475" y="110" /><di:waypoint x="475" y="135" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e5" bpmnElement="F5"><di:waypoint x="396" y="210" /><di:waypoint x="475" y="210" /><di:waypoint x="475" y="185" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e6" bpmnElement="F6"><di:waypoint x="500" y="160" /><di:waypoint x="560" y="160" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e7" bpmnElement="G1"><di:waypoint x="206" y="400" /><di:waypoint x="250" y="400" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e8" bpmnElement="G2"><di:waypoint x="350" y="400" /><di:waypoint x="400" y="400" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e9" bpmnElement="G3"><di:waypoint x="425" y="375" /><di:waypoint x="425" y="350" /><di:waypoint x="500" y="350" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e10" bpmnElement="G4"><di:waypoint x="425" y="425" /><di:waypoint x="425" y="450" /><di:waypoint x="500" y="450" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e11" bpmnElement="G5"><di:waypoint x="536" y="350" /><di:waypoint x="615" y="350" /><di:waypoint x="615" y="375" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e12" bpmnElement="G6"><di:waypoint x="536" y="450" /><di:waypoint x="615" y="450" /><di:waypoint x="615" y="425" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e13" bpmnElement="G7"><di:waypoint x="640" y="400" /><di:waypoint x="700" y="400" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e14" bpmnElement="MF1"><di:waypoint x="378" y="128" /><di:waypoint x="518" y="332" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e15" bpmnElement="MF2"><di:waypoint x="378" y="228" /><di:waypoint x="518" y="432" /></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

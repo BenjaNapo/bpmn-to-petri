@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <process id="Process_1" isExecutable="false">
+    <startEvent id="Start1"><outgoing>F1</outgoing></startEvent>
+    <exclusiveGateway id="XMerge"><incoming>F1</incoming><incoming>F6</incoming><outgoing>F2</outgoing></exclusiveGateway>
+    <task id="TaskMain" name="Main Task"><incoming>F2</incoming><outgoing>F3</outgoing></task>
+    <boundaryEvent id="BndEvt" attachedToRef="TaskMain" cancelActivity="true">
+      <outgoing>F7</outgoing>
+      <errorEventDefinition id="eed1" />
+    </boundaryEvent>
+    <exclusiveGateway id="XSplit"><incoming>F3</incoming><outgoing>F4</outgoing><outgoing>F6</outgoing></exclusiveGateway>
+    <endEvent id="End1"><incoming>F4</incoming></endEvent>
+    <task id="Handler" name="Error Handler"><incoming>F7</incoming><outgoing>F8</outgoing></task>
+    <endEvent id="End2"><incoming>F8</incoming></endEvent>
+    <sequenceFlow id="F1" sourceRef="Start1" targetRef="XMerge" />
+    <sequenceFlow id="F2" sourceRef="XMerge" targetRef="TaskMain" />
+    <sequenceFlow id="F3" sourceRef="TaskMain" targetRef="XSplit" />
+    <sequenceFlow id="F4" sourceRef="XSplit" targetRef="End1" />
+    <sequenceFlow id="F6" sourceRef="XSplit" targetRef="XMerge" />
+    <sequenceFlow id="F7" sourceRef="BndEvt" targetRef="Handler" />
+    <sequenceFlow id="F8" sourceRef="Handler" targetRef="End2" />
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="s0" bpmnElement="Start1"><dc:Bounds x="150" y="152" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s1" bpmnElement="XMerge" isMarkerVisible="true"><dc:Bounds x="230" y="145" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s2" bpmnElement="TaskMain"><dc:Bounds x="340" y="130" width="100" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s3" bpmnElement="BndEvt"><dc:Bounds x="372" y="192" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s4" bpmnElement="XSplit" isMarkerVisible="true"><dc:Bounds x="500" y="145" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s5" bpmnElement="End1"><dc:Bounds x="610" y="152" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s6" bpmnElement="Handler"><dc:Bounds x="460" y="280" width="100" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s7" bpmnElement="End2"><dc:Bounds x="620" y="302" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="e1" bpmnElement="F1"><di:waypoint x="186" y="170" /><di:waypoint x="230" y="170" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e2" bpmnElement="F2"><di:waypoint x="280" y="170" /><di:waypoint x="340" y="170" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e3" bpmnElement="F3"><di:waypoint x="440" y="170" /><di:waypoint x="500" y="170" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e4" bpmnElement="F4"><di:waypoint x="550" y="170" /><di:waypoint x="610" y="170" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e5" bpmnElement="F6"><di:waypoint x="525" y="195" /><di:waypoint x="525" y="230" /><di:waypoint x="255" y="230" /><di:waypoint x="255" y="195" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e6" bpmnElement="F7"><di:waypoint x="390" y="228" /><di:waypoint x="390" y="320" /><di:waypoint x="460" y="320" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e7" bpmnElement="F8"><di:waypoint x="560" y="320" /><di:waypoint x="620" y="320" /></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

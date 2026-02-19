@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn">
+  <process id="Process_1" isExecutable="false">
+    <startEvent id="Start1"><outgoing>F1</outgoing></startEvent>
+    <startEvent id="Start2"><outgoing>F2</outgoing></startEvent>
+    <task id="TaskA" name="Task A"><incoming>F1</incoming><outgoing>F3</outgoing></task>
+    <task id="TaskB" name="Task B"><incoming>F2</incoming><outgoing>F4</outgoing></task>
+    <exclusiveGateway id="XJ"><incoming>F3</incoming><incoming>F4</incoming><outgoing>F5</outgoing></exclusiveGateway>
+    <endEvent id="End1"><incoming>F5</incoming></endEvent>
+    <sequenceFlow id="F1" sourceRef="Start1" targetRef="TaskA" />
+    <sequenceFlow id="F2" sourceRef="Start2" targetRef="TaskB" />
+    <sequenceFlow id="F3" sourceRef="TaskA" targetRef="XJ" />
+    <sequenceFlow id="F4" sourceRef="TaskB" targetRef="XJ" />
+    <sequenceFlow id="F5" sourceRef="XJ" targetRef="End1" />
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
+      <bpmndi:BPMNShape id="s0" bpmnElement="Start1"><dc:Bounds x="180" y="112" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s1" bpmnElement="Start2"><dc:Bounds x="180" y="252" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s2" bpmnElement="TaskA"><dc:Bounds x="280" y="90" width="100" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s3" bpmnElement="TaskB"><dc:Bounds x="280" y="230" width="100" height="80" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s4" bpmnElement="XJ" isMarkerVisible="true"><dc:Bounds x="440" y="175" width="50" height="50" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s5" bpmnElement="End1"><dc:Bounds x="550" y="182" width="36" height="36" /></bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="e1" bpmnElement="F1"><di:waypoint x="216" y="130" /><di:waypoint x="280" y="130" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e2" bpmnElement="F2"><di:waypoint x="216" y="270" /><di:waypoint x="280" y="270" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e3" bpmnElement="F3"><di:waypoint x="380" y="130" /><di:waypoint x="465" y="130" /><di:waypoint x="465" y="175" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e4" bpmnElement="F4"><di:waypoint x="380" y="270" /><di:waypoint x="465" y="270" /><di:waypoint x="465" y="225" /></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="e5" bpmnElement="F5"><di:waypoint x="490" y="200" /><di:waypoint x="550" y="200" /></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

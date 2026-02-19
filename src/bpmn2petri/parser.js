@@ -32,6 +32,10 @@ class Parser {
         manualTask: BPMN.ManualTask,
         intermediateThrowEvent: BPMN.IntermediateThrowEvent,
         intermediateCatchEvent: BPMN.IntermediateCatchEvent,
+        boundaryEvent: BPMN.BoundaryEvent,
+        dataObjectReference: BPMN.DataObject,
+        dataStoreReference: BPMN.DataStoreReference,
+        textAnnotation: BPMN.TextAnnotation,
     };
 
     constructor(xml) {
@@ -129,6 +133,7 @@ class Parser {
             }
 
             this.parseFlows(process, processObj);
+            this.parseAssociations(process, processObj);
             this.setNodeArcs(processObj);
             this.BPMN.addProcess(processObj);
         }
@@ -173,6 +178,72 @@ class Parser {
             );
 
             processObj.addNode(nodeObj);
+
+            // Handle boundary event attachedToRef
+            const attachedToRef = element.getAttribute("attachedToRef");
+            if (attachedToRef && nodeObj instanceof BPMN.BoundaryEvent) {
+                nodeObj.attachedToRef = attachedToRef;
+                const cancelAttr = element.getAttribute("cancelActivity");
+                nodeObj.cancelActivity = cancelAttr !== "false"; // default true
+            }
+            
+            // Parse data associations (inputs/outputs) for this node
+            this.parseDataAssociations(element, nodeObj, processObj);
+        }
+    }
+
+    /**
+     * Parse data input and output associations for a node
+     *
+     * @param {Element} element - The XML element of the node
+     * @param {BPMN.Node} nodeObj - The node object
+     * @param {BPMN.Process} processObj - The process object
+     */
+    parseDataAssociations(element, nodeObj, processObj) {
+        // Parse Data Output Associations (Task -> Object)
+        const outputs = element.getElementsByTagName("dataOutputAssociation");
+        for (let i = 0; i < outputs.length; i++) {
+            const output = outputs[i];
+            const id = output.getAttribute("id");
+            const targetRefs = output.getElementsByTagName("targetRef");
+            
+            if (targetRefs.length > 0) {
+                const targetRefId = targetRefs[0].textContent;
+                const layout = this.findLayout(id) || [];
+                
+                const assoc = new BPMN.Association(
+                    nodeObj, // Source is the task/node
+                    new BPMN.BPMNNode(targetRefId), // Target is the data object
+                    id,
+                    "",
+                    layout,
+                    processObj
+                );
+                processObj.addFlow(assoc);
+            }
+        }
+
+        // Parse Data Input Associations (Object -> Task)
+        const inputs = element.getElementsByTagName("dataInputAssociation");
+        for (let i = 0; i < inputs.length; i++) {
+            const input = inputs[i];
+            const id = input.getAttribute("id");
+            const sourceRefs = input.getElementsByTagName("sourceRef");
+            
+            if (sourceRefs.length > 0) {
+                const sourceRefId = sourceRefs[0].textContent;
+                const layout = this.findLayout(id) || [];
+                
+                const assoc = new BPMN.Association(
+                    new BPMN.BPMNNode(sourceRefId), // Source is the data object
+                    nodeObj, // Target is the task/node
+                    id,
+                    "",
+                    layout,
+                    processObj
+                );
+                processObj.addFlow(assoc);
+            }
         }
     }
 
@@ -201,6 +272,34 @@ class Parser {
                 processObj
             );
             processObj.addFlow(flowObj);
+        }
+    }
+
+    /**
+     * Parse the associations from the XML
+     *
+     * @param {Element} process - The process element to parse the associations from
+     * @param {Process} processObj - The process object to add the associations to
+     */
+    parseAssociations(process, processObj) {
+        const associations = process.getElementsByTagName("association");
+        for (let i = 0; i < associations.length; i++) {
+            const assoc = associations[i];
+            const id = assoc.getAttribute("id");
+            const name = assoc.getAttribute("name") || "";
+            const sourceRef = new BPMN.BPMNNode(assoc.getAttribute("sourceRef"));
+            const targetRef = new BPMN.BPMNNode(assoc.getAttribute("targetRef"));
+            const layout = this.findLayout(id) || [];
+
+            const assocObj = new BPMN.Association(
+                sourceRef,
+                targetRef,
+                id,
+                name,
+                layout,
+                processObj
+            );
+            processObj.addFlow(assocObj);
         }
     }
 

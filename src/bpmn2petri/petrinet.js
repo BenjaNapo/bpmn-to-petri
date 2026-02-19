@@ -738,6 +738,18 @@ export class XORDecoratedJoin extends Transition {
  */
 export class Arc {
     constructor(source, target, petri = null, process = null) {
+        if (!source || !target) {
+            console.warn(
+                `[Arc] Skipping arc with undefined node: source=${source?.id ?? 'undefined'}, target=${target?.id ?? 'undefined'}`,
+                new Error().stack
+            );
+            this.source = null;
+            this.target = null;
+            this.id = null;
+            this.waypoints = [];
+            this.process = process;
+            return;
+        }
         this.source = source;
         this.target = target;
         this.petri = petri;

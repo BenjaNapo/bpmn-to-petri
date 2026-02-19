@@ -755,7 +755,13 @@ export class CancelIntermediateCatchEvent extends IntermediateCatchEvent {}
  * @class BoundaryEvent
  * @extends BPMNNode
  */
-export class BoundaryEvent extends BPMNNode {}
+export class BoundaryEvent extends BPMNNode {
+    constructor(id, name, x, y, width, height, process) {
+        super(id, name, x, y, width, height, process);
+        this.attachedToRef = null;
+        this.cancelActivity = true; // interrupting by default
+    }
+}
 
 /**
  * Represents a BPMN Message Boundary Event.
@@ -923,3 +929,52 @@ export class SubProcess extends Task {}
  * @extends Task
  */
 export class Activity extends Task {}
+
+/**
+ * Represents a BPMN Artifact.
+ * Base class for data objects, data stores, and text annotations.
+ * 
+ * @class Artifact
+ * @extends BPMNNode
+ */
+export class Artifact extends BPMNNode {
+    toString() {
+        return `Artifact(${this.id}@${this.name})`;
+    }
+}
+
+/**
+ * Represents a BPMN Data Object.
+ * 
+ * @class DataObject
+ * @extends Artifact
+ */
+export class DataObject extends Artifact {
+    toString() {
+        return `DataObject(${this.id}@${this.name})`;
+    }
+}
+
+/**
+ * Represents a BPMN Data Store Reference.
+ * 
+ * @class DataStoreReference
+ * @extends Artifact
+ */
+export class DataStoreReference extends Artifact {
+    toString() {
+        return `DataStoreReference(${this.id}@${this.name})`;
+    }
+}
+
+/**
+ * Represents a BPMN Text Annotation.
+ * 
+ * @class TextAnnotation
+ * @extends Artifact
+ */
+export class TextAnnotation extends Artifact {
+    toString() {
+        return `TextAnnotation(${this.id}@${this.name})`;
+    }
+}
