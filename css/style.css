@@ -511,3 +511,40 @@ input[type="submit"]:hover,
     visibility: visible;
     opacity: 1;
 }
+
+/* Keep footer items in the page flow on small screens. */
+@media (max-width: 600px) {
+    .main-container {
+        flex-direction: column;
+        height: auto;
+        min-height: calc(100vh - 16px);
+        min-height: calc(100svh - 16px);
+    }
+
+    .loader-container {
+        flex: 1;
+        height: auto;
+        padding: 24px 0;
+    }
+
+    .warnings {
+        position: static;
+        margin-top: 24px;
+    }
+
+    .converter-container {
+        height: calc(100vh - 120px);
+        height: calc(100svh - 120px);
+        min-height: 300px;
+        margin-bottom: 32px;
+    }
+
+    .copyright {
+        position: static;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 12px;
+        text-align: center;
+        line-height: 1.6;
+    }
+}
